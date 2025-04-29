@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Users</title>
+</head>
+
+<body>
+
+<div class="container pl-0">
+    <div class="row pb-3 pt-3 mb-2 pl-0 ml-0">
+        <div class="col-12 pl-0"><a type="button" th:href="${(#mvc.url('UC#addUserForm')).build()}" class="btn btn-secondary">Create new user</a></div>
+    </div>
+</div>
+
+<div class="container" th:remove="${users.size() == 0} ? all">
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        <div th:each="user,rowStat : ${users}">
+            <tr>
+                <td th:text="${user.getFirstName()}"/>
+                <td th:text="${user.getLastName()}"/>
+                <td th:text="${user.getEmail()}"/>
+                <td>
+                    <a type="button" th:href="@{/users/{id}/edit(id=${user.getId()})}" >Edit</a>
+                    <a type="button" th:href="@{/users/delete(id=${user.getId()})}" >Delete</a>
+                </td>
+            </tr>
+        </div>
+    </table>
+</div>
+</body>
+</html>
